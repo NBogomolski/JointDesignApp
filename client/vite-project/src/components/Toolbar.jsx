@@ -8,31 +8,39 @@ import {
     faPalette,
     faCircle,
     faSquareFull,
+    faLeftLong,
+    faRightLong,
+    faFloppyDisk,
 } from "@fortawesome/free-solid-svg-icons";
-// import {observer} from 'mobx-react-lite'
+import toolState from "../store/toolState";
+import canvasState from "../store/canvasState";
+import Brush from "../tools/Brush";
+import Rectangle from '../tools/Rectangle';
 
 
 const Toolbar = () => {
     // const toolRef = useRef()
 
+    function changeColor(e) {
+        // toolState.setStrokeColor(e.target.value);
+        // toolState.setFillColor(e.target.value);
+    }
+
     return (
         <aside className="toolbar">
             <h2>Toolbar</h2>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Brush(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faBrush} size="2xl" />
             </button>
             <button className="toolbar-btn">
                 <FontAwesomeIcon className='icon-size' icon={faCircle} size="2xl" />
             </button>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Rectangle(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faSquareFull} size="2xl" />
             </button>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" >
                 <FontAwesomeIcon className='icon-size' icon={faEraser} size="2xl" />
             </button>
-            {/* <input type="color" className="toolbar-btn">
-                
-            </input> */}
             <div>
                 <label htmlFor="color-picker" style={{display: 'flex', alignItems: 'center'}} className='toolbar-btn'>
                     <FontAwesomeIcon className='icon-size color-picker' icon={faPalette} />
@@ -41,9 +49,19 @@ const Toolbar = () => {
                     type="color"
                     id="color-picker"
                     className='toolbar-btn'
+                    onChange={e => changeColor(e)}
                     style={{display: 'none'}}
                 />
             </div>
+            <button className="toolbar-btn" style={{marginTop: 'auto'}}>
+                <FontAwesomeIcon className='icon-size' icon={faLeftLong} size="2xl" />
+            </button>
+            <button className="toolbar-btn">
+                <FontAwesomeIcon className='icon-size' icon={faRightLong} size="2xl" />
+            </button>
+            <button className="toolbar-btn">
+                <FontAwesomeIcon className='icon-size' icon={faFloppyDisk} size="2xl" />
+            </button>
         </aside>
     );
 }
