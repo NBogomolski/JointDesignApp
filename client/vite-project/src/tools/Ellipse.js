@@ -18,10 +18,11 @@ export default class Ellipse extends Tool {
 
     mouseDownHandler(e) {
         this.mouseDown = true;
+        let canvasData = this.canvas.toDataURL()
         this.ctx.beginPath();
         this.startX = e.pageX - e.target.offsetLeft;
         this.startY = e.pageY - e.target.offsetTop
-        this.drawn = this.canvas.toDataURL()
+        this.drawn = canvasData
     }
 
     mouseMoveHandler(e) {
@@ -42,9 +43,10 @@ export default class Ellipse extends Tool {
     draw(x, y, xRadius, yRadius) {
         const img = new Image()
         img.src = this.drawn
-        img.onload = () => {
+        img.onload = async () => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
+            this.ctx.beginPath()
             this.ctx.ellipse(x,y,xRadius,yRadius, 0, 0, 2*Math.PI)
             this.ctx.stroke()
             // this.ctx.fill()
