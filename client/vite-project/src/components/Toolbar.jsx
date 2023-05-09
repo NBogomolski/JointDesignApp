@@ -16,6 +16,7 @@ import toolState from "../store/toolState";
 import canvasState from "../store/canvasState";
 import Brush from "../tools/Brush";
 import Rectangle from '../tools/Rectangle';
+import Ellipse from '../tools/Ellipse';
 
 
 const Toolbar = () => {
@@ -32,7 +33,7 @@ const Toolbar = () => {
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Brush(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faBrush} size="2xl" />
             </button>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Ellipse(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faCircle} size="2xl" />
             </button>
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Rectangle(canvasState.canvas))}>
