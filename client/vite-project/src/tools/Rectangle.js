@@ -31,11 +31,10 @@ export default class Rectangle extends Tool {
             let height = currentY - this.startY;
             let width = currentX - this.startX;
             if (e.shiftKey) {
-                let longerSide = height > width ? height : width
-                height = longerSide
-                width = longerSide
+                let longerSide = Math.abs(height) > Math.abs(width) ? Math.abs(height) : Math.abs(width)
+                height = height > 0 ? longerSide : -longerSide;
+                width = width > 0 ? longerSide : -longerSide;
             }
-            
             this.draw(this.startX, this.startY, width, height);
         }
     }
@@ -49,6 +48,6 @@ export default class Rectangle extends Tool {
             this.ctx.strokeRect(x,y,w,h)
             // this.ctx.fill()
         }
-        console.log( w, h)
+        console.log( x,y,w, h)
     }
 }
