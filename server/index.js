@@ -8,7 +8,8 @@ app.ws('/', (ws, req) => {
     console.log(connected)
     ws.on('message', (msg) => {
         msg = JSON.parse(msg)
-        switch (msg.event) {
+        console.log(msg)
+        switch (msg.method) {
             case 'connection': {
                 handleUserConnection(ws, msg)
                 break
@@ -24,8 +25,9 @@ app.listen(PORT, () => {
 
 
 function handleUserConnection(ws, msg) {
-    msg = JSON.parse(msg)
+    // msg = JSON.parse(msg)
     ws.id = msg.id
+    console.log('connected')
     broadcastConnection(ws, msg)
 }
 
