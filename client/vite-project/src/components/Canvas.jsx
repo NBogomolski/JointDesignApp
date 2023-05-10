@@ -16,9 +16,13 @@ const Canvas = observer(() => {
         }
     }, [])
 
+    function saveAction() { 
+        canvasState.pushToUndo(canvasRef.current.toDataURL())
+    }
+
     return (
         <div className="canvas">
-            <canvas ref={canvasRef} width={600} height={600}></canvas>
+            <canvas onMouseDown={() => saveAction()} ref={canvasRef} width={600} height={600}></canvas>
         </div>
     );
 });

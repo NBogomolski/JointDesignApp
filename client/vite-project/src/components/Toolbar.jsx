@@ -45,10 +45,10 @@ const Toolbar = () => {
             </button>
             
 
-            <button className="toolbar-btn" style={{marginTop: 'auto'}}>
+            <button className="toolbar-btn" onClick={() => canvasState.undo()} style={{marginTop: 'auto'}}>
                 <FontAwesomeIcon className='icon-size' icon={faLeftLong} size="2xl" />
             </button>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" onClick={() => canvasState.redo()}>
                 <FontAwesomeIcon className='icon-size' icon={faRightLong} size="2xl" />
             </button>
             <button className="toolbar-btn">
