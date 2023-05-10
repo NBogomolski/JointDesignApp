@@ -19,6 +19,7 @@ import Brush from "../tools/Brush";
 import Rectangle from '../tools/Rectangle';
 import Ellipse from '../tools/Ellipse';
 import Line from '../tools/Line';
+import Eraser from '../tools/Eraser';
 
 
 const Toolbar = () => {
@@ -41,7 +42,7 @@ const Toolbar = () => {
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Rectangle(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faSquareFull} size="2xl" />
             </button>
-            <button className="toolbar-btn" >
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Eraser(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faEraser} size="2xl" />
             </button>
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Line(canvasState.canvas))}>
@@ -59,6 +60,7 @@ const Toolbar = () => {
                     style={{display: 'none'}}
                 />
             </div>
+            
             <button className="toolbar-btn" style={{marginTop: 'auto'}}>
                 <FontAwesomeIcon className='icon-size' icon={faLeftLong} size="2xl" />
             </button>
