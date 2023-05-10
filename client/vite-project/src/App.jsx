@@ -1,7 +1,8 @@
 import {useState } from "react";
 import "./styles/App.sass";
 import Toolbar from "./components/Toolbar"
-import Canvas from "./components/Canvas";
+import Canvas from "./components/Canvas"
+import SettingBar from "./components/SettingBar";
 
 function App() {
     return (
@@ -10,9 +11,7 @@ function App() {
 				<div className="room">
 					<Toolbar/>
 					<div className="canvas-container">
-						<div className="setting-bar">
-							<h2>Setting bar</h2>
-						</div>
+						<SettingBar/>
 						<Canvas/>
 					</div>
 				</div>

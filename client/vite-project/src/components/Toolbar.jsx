@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBrush,
     faEraser,
-    faPalette,
     faCircle,
     faSquareFull,
     faLeftLong,
@@ -25,10 +24,6 @@ import Eraser from '../tools/Eraser';
 const Toolbar = () => {
     // const toolRef = useRef()
 
-    function changeColor(e) {
-        // toolState.setStrokeColor(e.target.value);
-        // toolState.setFillColor(e.target.value);
-    }
 
     return (
         <aside className="toolbar">
@@ -48,19 +43,8 @@ const Toolbar = () => {
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Line(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faGripLinesVertical} />
             </button>
-            <div>
-                <label htmlFor="color-picker" style={{display: 'flex', alignItems: 'center'}} className='toolbar-btn'>
-                    <FontAwesomeIcon className='icon-size color-picker' icon={faPalette} />
-                </label>
-                <input
-                    type="color"
-                    id="color-picker"
-                    className='toolbar-btn'
-                    onChange={e => changeColor(e)}
-                    style={{display: 'none'}}
-                />
-            </div>
             
+
             <button className="toolbar-btn" style={{marginTop: 'auto'}}>
                 <FontAwesomeIcon className='icon-size' icon={faLeftLong} size="2xl" />
             </button>

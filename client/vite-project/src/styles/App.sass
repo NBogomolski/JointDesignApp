@@ -27,10 +27,28 @@ $davys-gray: #565656
 	height: 100vh
 	flex-grow: 1
 	.setting-bar
+		display: flex
+		flex-direction: row
+		align-items: center
+		// justify-content: space-around
 		height: 10%
 		background-color: $default-bg-color
 		padding: 5px
 		box-shadow: 0 1px 5px gray
+		&-element			
+			display: flex
+			flex-direction: column
+			// align-items: center
+			margin: 0 15px
+			& > *
+				border: none
+				align-self: center
+				text-align: center
+			button
+				border: 1px solid black
+				border-radius: 5px
+				width: 60px
+				
 
 .room
 	display: flex
@@ -40,9 +58,8 @@ $davys-gray: #565656
 		flex-direction: column
 		align-items: center
 		box-shadow: 1px 4px 5px #808080
-		width: 10%
 		height: 100vh
-		min-width: 100px
+		width: 100px
 		background-color: $default-bg-color
 		z-index: 1
 		.toolbar-btn
