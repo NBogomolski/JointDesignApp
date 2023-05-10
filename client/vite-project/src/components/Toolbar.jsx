@@ -11,12 +11,14 @@ import {
     faLeftLong,
     faRightLong,
     faFloppyDisk,
+    faGripLinesVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import toolState from "../store/toolState";
 import canvasState from "../store/canvasState";
 import Brush from "../tools/Brush";
 import Rectangle from '../tools/Rectangle';
 import Ellipse from '../tools/Ellipse';
+import Line from '../tools/Line';
 
 
 const Toolbar = () => {
@@ -41,6 +43,9 @@ const Toolbar = () => {
             </button>
             <button className="toolbar-btn" >
                 <FontAwesomeIcon className='icon-size' icon={faEraser} size="2xl" />
+            </button>
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Line(canvasState.canvas))}>
+                <FontAwesomeIcon className='icon-size' icon={faGripLinesVertical} />
             </button>
             <div>
                 <label htmlFor="color-picker" style={{display: 'flex', alignItems: 'center'}} className='toolbar-btn'>
