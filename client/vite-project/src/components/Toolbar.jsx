@@ -30,7 +30,7 @@ const Toolbar = () => {
         a.download = canvasState.sessionId + '.jpg'
         document.body.appendChild(a)
         a.click()
-        document.body.removechild(a)
+        document.body.removeChild(a)
     }
 
     return (
