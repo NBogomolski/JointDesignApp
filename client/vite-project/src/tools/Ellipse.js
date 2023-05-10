@@ -49,7 +49,7 @@ export default class Ellipse extends Tool {
             this.ctx.beginPath()
             this.ctx.ellipse(x,y,xRadius,yRadius, 0, 0, 2*Math.PI)
             this.ctx.stroke()
-            // this.ctx.fill()
+            this.ctx.fill()
         }
         // console.log( x,y,w, h)
     }

@@ -46,8 +46,8 @@ export default class Rectangle extends Tool {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
             this.ctx.strokeRect(x,y,w,h)
-            if (this.ctx.fillStyle)
-                this.ctx.fillRect(x,y,w,h)
+            // if (this.ctx.fillStyle)
+            this.ctx.fillRect(x,y,w,h)
             // this.ctx.fill()
         }
         // console.log( x,y,w, h)

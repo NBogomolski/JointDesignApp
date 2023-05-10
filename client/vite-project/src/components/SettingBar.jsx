@@ -48,7 +48,7 @@ const SettingBar = () => {
                     onChange={(e) => changeFillColor(e)}
                     style={{ display: "none" }}
                 />
-                <button onClick={() => changeFillColor(null)}>No fill</button>
+                <button onClick={() => toolState.setFillColor('rgba(0,0,0,0)')}>No fill</button>
             </div>
             <div className="setting-bar-element">
                 <p className="self-center">Stroke color: </p>
