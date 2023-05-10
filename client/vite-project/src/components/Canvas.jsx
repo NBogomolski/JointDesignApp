@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import canvasState from "../store/canvasState"
 import toolState from "../store/toolState";
 import Brush from "../tools/Brush";
+import Rectangle from "../tools/Rectangle";
 
 const Canvas = observer(() => {
     const canvasRef = useRef();
@@ -58,8 +59,10 @@ const Canvas = observer(() => {
         const ctx = canvasRef.current.getContext('2d')
         switch (shape.type) {
             case 'brush':
-                console.log('drawing')
                 Brush.draw(ctx, shape.x, shape.y)
+                break
+            case 'rectangle':
+                Rectangle.staticDraw(ctx, shape.x, shape.y, shape.width, shape.height, shape.fillColor)
                 break
             case 'finish':
                 ctx.beginPath()
