@@ -23,18 +23,26 @@ import Eraser from '../tools/Eraser';
 
 const Toolbar = () => {
     // const toolRef = useRef()
-
+    const exportImage = () => {
+        const dataUrl = canvasState.canvas.toDataURL();
+        const a = document.createElement('a')
+        a.href = dataUrl
+        a.download = canvasState.sessionId + '.jpg'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removechild(a)
+    }
 
     return (
         <aside className="toolbar">
             <h2>Toolbar</h2>
-            <button className="toolbar-btn" onClick={() => toolState.setTool(new Brush(canvasState.canvas))}>
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Brush(canvasState.canvas, canvasState.socket, canvasState.sessionId))}>
                 <FontAwesomeIcon className='icon-size' icon={faBrush} size="2xl" />
             </button>
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Ellipse(canvasState.canvas))}>
                 <FontAwesomeIcon className='icon-size' icon={faCircle} size="2xl" />
             </button>
-            <button className="toolbar-btn" onClick={() => toolState.setTool(new Rectangle(canvasState.canvas))}>
+            <button className="toolbar-btn" onClick={() => toolState.setTool(new Rectangle(canvasState.canvas, canvasState.socket, canvasState.sessionId))}>
                 <FontAwesomeIcon className='icon-size' icon={faSquareFull} size="2xl" />
             </button>
             <button className="toolbar-btn" onClick={() => toolState.setTool(new Eraser(canvasState.canvas))}>
@@ -51,7 +59,7 @@ const Toolbar = () => {
             <button className="toolbar-btn" onClick={() => canvasState.redo()}>
                 <FontAwesomeIcon className='icon-size' icon={faRightLong} size="2xl" />
             </button>
-            <button className="toolbar-btn">
+            <button className="toolbar-btn" onClick={() => exportImage()}>
                 <FontAwesomeIcon className='icon-size' icon={faFloppyDisk} size="2xl" />
             </button>
         </aside>
