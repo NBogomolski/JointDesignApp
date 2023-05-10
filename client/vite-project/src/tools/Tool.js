@@ -1,6 +1,9 @@
 export default class Tool {
-    constructor(canvas) {
+    constructor(canvas, socket, session) {
         this.canvas = canvas;
+        this.socket = socket;
+        console.log('Tool ',socket, this.socket)
+        this.session = session;
         this.ctx = canvas.getContext("2d");
         this.destroyEvents()
     }

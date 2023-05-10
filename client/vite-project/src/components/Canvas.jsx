@@ -15,26 +15,35 @@ const Canvas = observer(() => {
 
     useEffect(() => {
         canvasState.setCanvas(canvasRef.current)
-        toolState.setTool(new Brush(canvasRef.current))
     }, [])
 
     useEffect(() => {
-
         if (canvasState.username) {
             const socket = new WebSocket("ws://localhost:5000/");
+            canvasState.setSocket(socket)
+            canvasState.setSessionId(params.id)
+            console.log(socket)
+            toolState.setTool(new Brush(canvasRef.current, socket, params.id));
             socket.onopen = () => {
                 console.log('connection established')
                 socket.send(
                     JSON.stringify({
-                        id: params.id,
+                        sessionId: params.id,
                         username: canvasState.username,
-                        method: "connection",
+                        event: "connection",
                     })
                 );
             };
             socket.onmessage = (event) => {
                 let msg = JSON.parse(event.data);
-                console.log(msg);
+                switch (msg.event) {
+                    case 'connection':
+                        console.log(`${msg.username} connected`)
+                        break
+                    case 'draw':
+                        handleDrawing(msg)
+                        break
+                }
             };
             // return () => {
 
@@ -42,6 +51,21 @@ const Canvas = observer(() => {
         }
     }, [canvasState.username])
 
+
+    const handleDrawing = (msg) => {
+        const shape = msg.shape
+        console.log(msg)
+        const ctx = canvasRef.current.getContext('2d')
+        switch (shape.type) {
+            case 'brush':
+                console.log('drawing')
+                Brush.draw(ctx, shape.x, shape.y)
+                break
+            case 'finish':
+                ctx.beginPath()
+                break
+        }
+    }
 
     function saveAction() { 
         canvasState.pushToUndo(canvasRef.current.toDataURL())
