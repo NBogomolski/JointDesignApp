@@ -1,0 +1,53 @@
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+
+$default-font-family: Helvetica, Arial, sans-serif
+$default-bg-color: #EBF5EE
+$davys-gray: #565656
+$font-color: #012A36
+
+@mixin borders()
+	border: 1px solid #808080
+	border-radius: 10px
+
+.outter-container
+	height: 100vh
+	font-family: $default-font-family
+	flex-direction: column
+	background-color: #e1e5f2
+	min-width: 800px
+	min-height: 600px
+	a
+		color: $font-color
+		display: block
+		text-align: center
+		text-decoration: none
+		cursor: pointer
+		margin-top: 25px
+		font-size: 25px
+	.app-title
+		margin-bottom: 10%
+		font-size: 60px
+		color: $font-color
+
+.centered-container
+	display: flex
+	align-items: center
+	justify-content: center
+	form
+		flex-direction: column
+		@include borders()
+		background-color: #ebf5ee
+		h1
+			margin: 25px
+			font-size: 40px
+			color: $font-color
+		input
+			height: 40px
+			font-size: 25px
+			margin: 20px
+			padding: 10px
+			@include borders()
+		

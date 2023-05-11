@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/App.sass";
 import { observer } from "mobx-react-lite";
 import { Modal, Button, Form} from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import canvasState from "../store/canvasState"
 import toolState from "../store/toolState";
 import Brush from "../tools/Brush";
 import Rectangle from "../tools/Rectangle";
 import axios from 'axios'
+    
 
 const Canvas = observer(() => {
     const canvasRef = useRef();
@@ -108,7 +109,7 @@ const Canvas = observer(() => {
 
     return (
         <div className="canvas">
-            <Modal show={showModal} onHide={() => {}}>
+            {/* <Modal show={showModal} onHide={() => {}}>
                 <Modal.Header>
                     <Modal.Title>Enter username</Modal.Title>
                 </Modal.Header>
@@ -123,7 +124,7 @@ const Canvas = observer(() => {
                         Join
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
             <canvas
                 onMouseDown={() => saveAction()}
                 ref={canvasRef}

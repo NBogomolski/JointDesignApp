@@ -3,29 +3,27 @@ import "./styles/App.sass";
 import Toolbar from "./components/Toolbar"
 import Canvas from "./components/Canvas"
 import SettingBar from "./components/SettingBar";
+import Room from "./components/Room";
+import LoginForm from "./components/LoginForm";
+import RegistrationForm from "./components/RegistrationForm";
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import NotFound from "./components/NotFound";
 
 function App() {
+
     return (
         <BrowserRouter>
             <Routes>
+                
+                <Route path="/auth/login" element={<LoginForm />} />
+                <Route path="/auth/register" element={<RegistrationForm />} />
                 <Route
-                    path="/:id/*"
-                    element={
-                        <div className="app">
-                            <div className="room">
-                                <Toolbar />
-                                <div className="canvas-container">
-                                    <SettingBar />
-                                    <Canvas />
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    path="/rooms/:id/*"
+                    element={<Room />}
                 />
                 <Route
                     path="/*"
-                    element={<Navigate to={`f${(+new Date()).toString(16)}`} />}
+                    element={<NotFound />}
                 />
             </Routes>
         </BrowserRouter>
