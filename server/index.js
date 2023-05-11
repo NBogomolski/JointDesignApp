@@ -7,11 +7,13 @@ const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
 
+const authRouter = require("./auth");
 
 const PORT = process.env.PORT || 5000
 
 app.use(cors())
 app.use(express.json());
+app.use('/auth', authRouter)
 
 
 app.ws('/', (ws, req) => {
