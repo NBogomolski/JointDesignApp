@@ -10,18 +10,10 @@ const router = express.Router();
 
 // Set your secret key for signing JWT tokens
 const secretKey = process.env.SECRET_KEY;
-const RANDOM_STRING_LENGTH = 20 
 
-// Sample user object
-const user = {
-    id: 1,
-    username: "exampleuser",
-    password: "password",
-};
 
 function verifyToken(req, res, next) {
     const token = req.headers.authorization;
-
     if (!token) {
         return res.status(401).json({ error: "Missing token" });
     }
@@ -29,8 +21,13 @@ function verifyToken(req, res, next) {
     try {
         // Verify and decode JWT token
         const decoded = jwt.verify(token, secretKey);
-        // Set user id on request object
-        req.userId = decoded.id;
+
+        if (req.method === 'POST') {
+            req.userId = decoded.id;
+
+        } else if (req.method === 'GET') {
+            req.query.userId = decoded.id
+        }
         next();
     } catch (err) {
         res.status(401).json({ error: "Invalid token" });
@@ -38,37 +35,59 @@ function verifyToken(req, res, next) {
 }
 
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-
-    // Check if user exists and password is correct
-    if (username === user.username && password === user.password) {
-        // Create and sign JWT token with user id
-        const token = jwt.sign({ id: user.id }, secretKey);
-        res.json({ token });
-    } else {
-        res.status(401).json({ error: "Invalid credentials" });
+    console.log(req.body)
+    const {data: dbUsers, error: dbError} = await DB.from("users").select("*").eq("username", username);
+    if (dbError) {
+        console.error(dbError);
+        return res.sendStatus(500);
     }
+    if (dbUsers.length === 0) return res.sendStatus(404).json();
+    const user = dbUsers[0];
+    console.log(dbUsers)
+    bcrypt.compare(password, user.password, (err, match) => {
+        if (err || !match) {
+            console.error(err);
+            return res.sendStatus(401);
+        }
+        if (match) {
+            const token = jwt.sign({ id: user.id }, secretKey);
+            res.json({ token });
+        }
+
+    })
 });
 
 router.post("/register", async (req, res) => {
     const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, generateRandomString(RANDOM_STRING_LENGTH));
-    console.log(hashedPassword);
-
-    const userExists = await DB.from("users")
-        .select("*")
-        .eq("username", username);  
-    console.log(userExists);
-
+    const saltRounds = 15
+    const salt = await bcrypt.genSalt(saltRounds)
+    bcrypt.hash(password, salt || saltRounds, async (err, hash) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log(hash)
+        const writeToDb = await DB.from("users").insert({
+            username: username,
+            password: hash
+        })
+        if (writeToDb.error) {
+            console.error(writeToDb.error)
+            return res.status(400).json({ error: "User exists" });
+        }
+        res.status(200)
+    });
 });
 
-const generateRandomString = (length) => {
-    return crypto
-        .randomBytes(Math.ceil(length / 2))
-        .toString("hex")
-        .slice(0, length);
-};
+// const generateRandomString = (length) => {
+//     return crypto
+//         .randomBytes(Math.ceil(length / 2))
+//         .toString("hex")
+//         .slice(0, length);
+// };
+
 // Example protected route that requires authentication
 // router.get("/protected", verifyToken, (req, res) => {
 //     res.json({
@@ -77,4 +96,5 @@ const generateRandomString = (length) => {
 //     });
 // });
 
-module.exports = router, {verifyToken};
+module.exports = {router, verifyToken};
+module.exports.default = router

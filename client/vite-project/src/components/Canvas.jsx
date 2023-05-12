@@ -8,18 +8,24 @@ import toolState from "../store/toolState";
 import Brush from "../tools/Brush";
 import Rectangle from "../tools/Rectangle";
 import axios from 'axios'
+import Cookies from "js-cookie";
     
 
 const Canvas = observer(() => {
     const canvasRef = useRef();
     const usernameRef = useRef();
-    const [showModal, setShowModal] = useState(true)
+    // const [showModal, setShowModal] = useState(true)
     const params = useParams();
 
     useEffect(() => {
+        console.log(params.id)
         canvasState.setCanvas(canvasRef.current)
         const ctx = canvasRef.current.getContext("2d");
-        axios.get('http://localhost:5000/image?id='+params.id)
+        axios.get('http://localhost:5000/image?id='+params.id, {
+            headers: {
+                'Authorization': Cookies.get('token')
+            }
+        })
             .then(res => {
                 const img = new Image();
                 img.src = res.data

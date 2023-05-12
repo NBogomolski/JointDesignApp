@@ -1,8 +1,6 @@
 import React, {useState } from "react";
 import "./styles/App.sass";
-import Toolbar from "./components/Toolbar"
-import Canvas from "./components/Canvas"
-import SettingBar from "./components/SettingBar";
+import Home from "./components/Home";
 import Room from "./components/Room";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
@@ -17,6 +15,7 @@ function App() {
                 
                 <Route path="/auth/login" element={<LoginForm />} />
                 <Route path="/auth/register" element={<RegistrationForm />} />
+                <Route path="/:username" element={<Home/>} />
                 <Route
                     path="/rooms/:id/*"
                     element={<Room />}

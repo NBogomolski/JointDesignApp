@@ -15,7 +15,8 @@ const RegistrationForm = () => {
             return
         }
         axios.post('http://localhost:5000/auth/register', {
-            
+            username: username.value,
+            password: password.value,
         }).then(res => {
             username.value = ''
             password.value = ''

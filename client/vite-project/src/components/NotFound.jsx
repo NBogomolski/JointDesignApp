@@ -1,14 +1,14 @@
 import '../styles/NotFound.sass'
 import { useNavigate } from 'react-router-dom'
-import AuthState from '../store/authState'
 import { useEffect } from 'react'
+import Cookies from 'js-cookie';
 
 const NotFound = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(AuthState.loggedIn)
-        navigate('/auth/login', {replace: true})
+        if (!Cookies.get('token'))
+            navigate('/auth/login', {replace: true})
     }, [])
 
     return (
