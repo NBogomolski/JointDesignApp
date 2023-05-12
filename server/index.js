@@ -39,36 +39,6 @@ app.ws('/', (ws, req) => {
     })
 })
 
-// app.get('/projects/:username', async (req, res) => { 
-//     console.log( req.query.userId)
-//     const username = req.params.username
-//     const userId = req.query.userId
-//     let projects = []
-//     const {data: rooms, error: dbError}= await DB.from('m2m_users_rooms').select('*').eq('userId', userId)
-//     if (dbError) {
-//         console.error( dbError)
-//         return res.status(500)
-//     }
-//     rooms.forEach(async (item) => {
-//         const {data, error} = await DB.storage
-//             .from('images')
-//             .download(`${item.sessionId}.jpg`)
-
-//         if (error) {
-//             console.error(error);
-//         } else {
-            // const buffer = await data.arrayBuffer();
-            // const base64String = Buffer.from(buffer).toString('base64')
-            // const file = `data:image/png;base64,` + base64String
-//             projects.push({...item, file})
-//         }
-//     })
-//     if (rooms.length > 0) {
-//         res.json(projects)
-//     }
-
-// })
-
 app.get("/projects/:username", async (req, res) => {
     const username = req.params.username;
     const userId = req.query.userId;
@@ -81,7 +51,6 @@ app.get("/projects/:username", async (req, res) => {
         console.error(dbError);
         return res.status(500).json({ error: "Database error" });
     }
-    let i = 0;
     for (const item of rooms) {
         const { data, error } = await DB.storage
             .from("images")

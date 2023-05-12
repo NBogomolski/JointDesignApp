@@ -37,9 +37,8 @@ function verifyToken(req, res, next) {
 
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body)
     const {data: dbUsers, error: dbError} = await DB.from("users").select("*").eq("username", username);
-    if (dbError) {
+    if (dbError) {                      
         console.error(dbError);
         return res.sendStatus(500);
     }

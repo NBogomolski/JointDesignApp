@@ -26,24 +26,6 @@ function App() {
                 />
             </Routes>
         </BrowserRouter>
-        // <BrowserRouter>
-        //     <div className="app">
-        //         <Routes>
-        //             <Route path="/:id/*">
-        //                 <div className="room">
-        //                     <Toolbar />
-        //                     <div className="canvas-container">
-        //                         <SettingBar />
-        //                         <Canvas />
-        //                     </div>
-        //                 </div>
-        //             </Route>
-        //             <Route path="/*">
-        //                 <Navigate to={`f${(+new Date()).toString(16)}`} />
-        //             </Route>
-        //         </Routes>
-        //     </div>
-        // </BrowserRouter>
     );
 }
 

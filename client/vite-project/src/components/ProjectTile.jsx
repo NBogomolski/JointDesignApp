@@ -20,7 +20,7 @@ const ProjectTile = ({props}) => {
     },[props])
 
     const joinRoom = () => {
-        navigate('/rooms/:id' + props.sessionId, {replace: true});
+        navigate('/rooms/' + props.sessionId, {replace: true});
     }
 
     return (
